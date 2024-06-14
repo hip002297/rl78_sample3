@@ -80,15 +80,21 @@ void panel(void)
 {
 	DGIN_INIT;
 
-	DGIN_PROC( I_07,20, LOW,10,fTrg10ms);
-	DGIN_PROC( I_09,21, LOW,10,fTrg10ms);
-	DGIN_PROC( I_11,22, LOW,10,fTrg10ms);
-	DGIN_PROC( I_13,51, LOW,10,fTrg10ms);
-	DGIN_PROC( I_15,52, LOW,10,fTrg10ms);
-	DGIN_PROC( I_17,53, LOW,10,fTrg10ms);
-	DGIN_PROC( I_19,54, LOW,10,fTrg10ms);
-	DGIN_PROC( I_21,55, LOW,10,fTrg10ms);
-	DGOUT_PROC( 30, fOFF, LOW );
-	DGOUT_PROC( 31, fOFF, LOW );
-	DGOUT_PROC( 32, fOFF, LOW );
+	DGIN_PROC( I_07,20, LOW,10,fTrg10ms); // 0
+	DGIN_PROC( I_09,21, LOW,10,fTrg10ms); // 1
+	DGIN_PROC( I_11,22, LOW,10,fTrg10ms); // 2
+	DGIN_PROC( I_13,51, LOW,10,fTrg10ms); // 3
+	DGIN_PROC( I_15,52, LOW,10,fTrg10ms); // 4
+	DGIN_PROC( I_17,53, LOW,10,fTrg10ms); // 5
+	DGIN_PROC( I_19,54, LOW,10,fTrg10ms); // 6
+	DGIN_PROC( I_21,55, LOW,10,fTrg10ms); // 7
+	
+	if((I_09 == 0) || (I_17 == 0)) { F1407 = 0x00; F1409 = 0x00; F1411 = 0x01;} // remindre = 1
+	else if((I_11 == 0) || (I_19 == 0)) { F1407 = 0x00; F1409 = 0x01; F1411 = 0x00;} // remindre = 2
+	else if((I_13 == 0) || (I_21 == 0)) { F1407 = 0x01; F1409 = 0x00; F1411 = 0x00;} // remindre = 3
+	else if((I_07 == 0) || (I_15 == 0)) { F1407 = 0x00; F1409 = 0x00; F1411 = 0x00;} // remindre = 0
+	
+	DGOUT_PROC( 30, F1407, LOW ); // Left
+	DGOUT_PROC( 31, F1409, LOW ); // Center
+	DGOUT_PROC( 32, F1411, LOW ); // Right
 }
